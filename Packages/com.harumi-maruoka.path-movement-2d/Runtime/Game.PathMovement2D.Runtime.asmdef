@@ -1,0 +1,5 @@
+{
+  "name": "Game.PathMovement2D.Runtime",
+  "rootNamespace": "Game.PathMovement2D",
+  "autoReferenced": true
+}

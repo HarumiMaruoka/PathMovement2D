@@ -1,0 +1,8 @@
+{
+  "name": "Game.PathMovement2D.Editor.Tests",
+  "rootNamespace": "Game.PathMovement2D.Tests",
+  "references": ["Game.PathMovement2D.Runtime", "Game.PathMovement2D.Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false
+}

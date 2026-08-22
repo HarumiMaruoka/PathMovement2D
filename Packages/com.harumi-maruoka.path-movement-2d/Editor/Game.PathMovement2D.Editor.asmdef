@@ -1,0 +1,7 @@
+{
+  "name": "Game.PathMovement2D.Editor",
+  "rootNamespace": "Game.PathMovement2D.Editor",
+  "references": ["Game.PathMovement2D.Runtime"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}

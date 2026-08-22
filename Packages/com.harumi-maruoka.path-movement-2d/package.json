@@ -1,0 +1,8 @@
+{
+  "name": "com.harumi-maruoka.path-movement-2d",
+  "version": "1.0.0",
+  "displayName": "Path Movement 2D",
+  "description": "Distance-parameterized 2D paths, reusable followers, and editor tooling.",
+  "unity": "6000.0",
+  "author": { "name": "harumi-maruoka" }
+}
