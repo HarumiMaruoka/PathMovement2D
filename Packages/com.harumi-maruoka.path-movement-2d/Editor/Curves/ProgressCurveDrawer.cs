@@ -7,23 +7,35 @@ namespace Game.PathMovement2D.Editor
     public sealed class ProgressCurveDrawer : PropertyDrawer
     {
         private const float GraphHeight = 180f;
+        private static readonly string[] DetailFields = { "time", "value", "tangentMode", "inHandle", "outHandle" };
         private static string selectedPath;
         private static int selectedIndex = -1;
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
+            if (!property.isExpanded) return EditorGUIUtility.singleLineHeight;
+
+            float spacing = EditorGUIUtility.standardVerticalSpacing;
+            float height = GraphHeight + EditorGUIUtility.singleLineHeight * 3f + spacing * 3f;
             SerializedProperty keys = property.FindPropertyRelative("keys");
-            return GraphHeight + EditorGUIUtility.singleLineHeight * (selectedPath == property.propertyPath && selectedIndex >= 0 && selectedIndex < keys.arraySize ? 7 : 4) + 24f;
+            if (selectedPath == property.propertyPath && selectedIndex >= 0 && selectedIndex < keys.arraySize)
+            {
+                SerializedProperty key = keys.GetArrayElementAtIndex(selectedIndex);
+                foreach (string field in DetailFields)
+                    height += spacing + EditorGUI.GetPropertyHeight(key.FindPropertyRelative(field), true);
+            }
+            return height;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position, label, property);
             float line = EditorGUIUtility.singleLineHeight;
+            float spacing = EditorGUIUtility.standardVerticalSpacing;
             Rect row = new(position.x, position.y, position.width, line);
             property.isExpanded = EditorGUI.Foldout(row, property.isExpanded, label, true);
             if (!property.isExpanded) { EditorGUI.EndProperty(); return; }
-            row.y += line + 2f;
+            row.y += line + spacing;
             SerializedProperty constraint = property.FindPropertyRelative("constraint");
             SerializedProperty preset = property.FindPropertyRelative("preset");
             Rect left = new(row.x, row.y, row.width * 0.5f - 2f, line);
@@ -33,9 +45,9 @@ namespace Game.PathMovement2D.Editor
             ProgressCurvePreset choice = (ProgressCurvePreset)EditorGUI.EnumPopup(right, (ProgressCurvePreset)preset.enumValueIndex);
             if (EditorGUI.EndChangeCheck()) ApplyPreset(property, choice);
 
-            Rect graph = new(position.x, row.yMax + 4f, position.width, GraphHeight);
+            Rect graph = new(position.x, row.yMax + spacing, position.width, GraphHeight);
             DrawGraph(graph, property);
-            Rect controls = new(position.x, graph.yMax + 3f, position.width, line);
+            Rect controls = new(position.x, graph.yMax + spacing, position.width, line);
             if (GUI.Button(new Rect(controls.x, controls.y, 80f, line), "Add Key")) AddKey(property, 0.5f, 0.5f);
             if (GUI.Button(new Rect(controls.x + 84f, controls.y, 90f, line), "Delete Key")) DeleteSelected(property);
 
@@ -43,12 +55,14 @@ namespace Game.PathMovement2D.Editor
             if (selectedPath == property.propertyPath && selectedIndex >= 0 && selectedIndex < keys.arraySize)
             {
                 SerializedProperty key = keys.GetArrayElementAtIndex(selectedIndex);
-                Rect detail = new(position.x, controls.yMax + 3f, position.width, line);
-                EditorGUI.PropertyField(detail, key.FindPropertyRelative("time")); detail.y += line;
-                EditorGUI.PropertyField(detail, key.FindPropertyRelative("value")); detail.y += line;
-                EditorGUI.PropertyField(detail, key.FindPropertyRelative("tangentMode")); detail.y += line;
-                EditorGUI.PropertyField(detail, key.FindPropertyRelative("inHandle")); detail.y += line;
-                EditorGUI.PropertyField(detail, key.FindPropertyRelative("outHandle"));
+                Rect detail = new(position.x, controls.yMax + spacing, position.width, line);
+                foreach (string field in DetailFields)
+                {
+                    SerializedProperty child = key.FindPropertyRelative(field);
+                    detail.height = EditorGUI.GetPropertyHeight(child, true);
+                    EditorGUI.PropertyField(detail, child, true);
+                    detail.y += detail.height + spacing;
+                }
                 preset.enumValueIndex = (int)ProgressCurvePreset.Custom;
             }
             EditorGUI.EndProperty();

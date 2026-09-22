@@ -276,3 +276,8 @@ EditModeテストは`Tests/Editor`にあります。コマンドライン例:
 ## ライセンス
 
 配布する場合は、プロジェクト方針に合った`LICENSE.md`をPackageへ追加してください。
+
+
+## Movement Clips
+
+See [Movement Clip guide](MOVEMENT_CLIPS.md) for shared assets, playback instances, SceneView editing, and synchronized animation previews.

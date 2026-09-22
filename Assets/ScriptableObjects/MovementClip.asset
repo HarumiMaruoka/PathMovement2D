@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7f1ea3683245509190d49750b92894, type: 3}
+  m_Name: MovementClip
+  m_EditorClassIdentifier: Game.PathMovement2D.Runtime::Game.PathMovement2D.PathMovementClip2D
+  points:
+  - id: 2dee09c0b8a148f3b0696222c7734960
+    position: {x: 0, y: 0}
+    inTangent: {x: -1, y: 0}
+    outTangent: {x: 1, y: 0}
+    tangentMode: 0
+    segmentType: 1
+  - id: 37de8d0d9fc34c3da2b39c540a184f06
+    position: {x: 3.44, y: 0}
+    inTangent: {x: -1, y: 0}
+    outTangent: {x: 1, y: 0}
+    tangentMode: 3
+    segmentType: 1
+  closed: 0
+  duration: 1
+  progressCurve:
+    constraint: 1
+    preset: 5
+    keys:
+    - id: 0519d7ae4dc24b1d858cef90497afba9
+      time: 0
+      value: 0
+      inHandle: {x: -0.04363062, y: -0.13452283}
+      outHandle: {x: 0.18739425, y: 0.5777778}
+      tangentMode: 2
+    - id: aa1c3600f1ee4f84add50d7dc4869f1f
+      time: 0.5749139
+      value: 0.05185174
+      inHandle: {x: -0, y: -0.10412316}
+      outHandle: {x: 0, y: 0.3222222}
+      tangentMode: 2
+    - id: 00b7079d8e124d45ac2202412afc6a30
+      time: 1
+      value: 1
+      inHandle: {x: -0.33333334, y: -0.33333337}
+      outHandle: {x: 0.1, y: 0.1}
+      tangentMode: 2
+  loopMode: 0
+  rotateAlongPath: 0
+  rotationOffsetDegrees: 0
+  arcLengthTolerance: 0.001
+  maxSubdivisionDepth: 6
